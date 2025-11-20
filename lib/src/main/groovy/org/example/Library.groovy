@@ -4,7 +4,21 @@
 package org.example
 
 class Library {
-    boolean someLibraryMethod() {
-        true
+    AnotherClass another = new AnotherClass()
+
+    boolean someLibraryMethod(boolean isChained = false) {
+        if(!isChained && another.currentValue) {
+            throw new Exception("Nope")
+        }
+
+        throw new Exception("BOOM")
+    }
+}
+
+class AnotherClass {
+    String name = 'Foo'
+
+    boolean isCurrentValue() {
+        return false
     }
 }

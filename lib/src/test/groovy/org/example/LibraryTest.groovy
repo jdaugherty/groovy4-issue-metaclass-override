@@ -4,16 +4,20 @@
 package org.example
 
 import spock.lang.Specification
+import spock.util.mop.ConfineMetaClassChanges
 
+@ConfineMetaClassChanges([Library])
 class LibraryTest extends Specification {
     def "someLibraryMethod returns true"() {
         setup:
         def lib = new Library()
+        lib.another.metaClass.isCurrentValue = { return true }
 
         when:
         def result = lib.someLibraryMethod()
 
         then:
-        result == true
+        Exception e = thrown(Exception)
+        e.message == "Nope"
     }
 }
